@@ -41,7 +41,7 @@ class Chef
 
       def command(text)
         shell_out!("bin/rails runner -e production '#{text}'",
-                   cwd: new_resource.oc_install_dir).stdout.chomp
+                   cwd: new_resource.oc_id_install_dir).stdout.chomp
       end
     end
   end

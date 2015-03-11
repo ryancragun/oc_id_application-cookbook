@@ -13,7 +13,6 @@ class Chef
       attribute :redirect_uri, kind_of: String, required: true
       attribute :oc_id_install_dir,
                 kind_of: String,
-                required: true,
                 default: '/opt/opscode/embedded/service/oc_id'
     end
   end
