@@ -6,6 +6,8 @@ class Chef
     class OcIdApplication < Chef::Provider::LWRPBase
       include Chef::Mixin::ShellOut
 
+      provides :oc_id_application
+
       use_inline_resources if defined?(:use_inlined_resources)
 
       action :create do
@@ -18,7 +20,7 @@ class Chef
             mode '0755'
           end
 
-          file File.join(new_resource.config_dir, "#{new_resource.name}.json") do
+          file ::File.join(new_resource.config_dir, "#{new_resource.name}.json") do
             content Chef::JSONCompat.to_json_pretty(attributes)
             owner 'root'
             group 'root'
@@ -46,7 +48,8 @@ EOF
           #          (right here) ------^
           # ```
           json = shell_out!("bin/rails runner -e production '#{rails_script}'",
-                            cwd: new_resource.oc_id_install_dir).stdout.lines.last.chomp
+                            cwd: new_resource.oc_id_install_dir,
+                            path: new_resource.path).stdout.lines.last.chomp
 
           Chef::JSONCompat.from_json(json).delete_if { |key| %w(id created_at updated_at).include? key }
         end
