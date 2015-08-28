@@ -11,6 +11,9 @@ class Chef
 
       attribute :name, kind_of: String, name_attribute: true
       attribute :redirect_uri, kind_of: String, required: true
+      attribute :config_dir,
+                kind_of: String,
+                default: '/etc/opscode/oc-id-application'
       attribute :oc_id_install_dir,
                 kind_of: String,
                 default: '/opt/opscode/embedded/service/oc_id'

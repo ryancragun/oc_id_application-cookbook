@@ -12,13 +12,13 @@ class Chef
         converge_by "create oc-id application '#{new_resource.name}'" do
           attributes = create!
 
-          directory '/etc/opscode/oc-id-applications' do
+          directory new_resource.config_dir do
             owner 'root'
             group 'root'
             mode '0755'
           end
 
-          file "/etc/opscode/oc-id-applications/#{new_resource.name}.json" do
+          file File.join(new_resource.config_dir, "#{new_resource.name}.json") do
             content Chef::JSONCompat.to_json_pretty(attributes)
             owner 'root'
             group 'root'
